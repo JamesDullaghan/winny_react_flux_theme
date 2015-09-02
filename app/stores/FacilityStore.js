@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
-import WebAPIUtils from '../utils/WebAPIUtils';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
 let _facility = {
   id: '',
