@@ -1,49 +1,38 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+import Store         from './Store';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/AppConstants';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants');
-var EventEmitter = require('events').EventEmitter;
-
-var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils');
-
-var ActionTypes = AppConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _page = {
-  name: "",
+let _page = {
+  name: '',
   sections: [
     {
-      title: "",
-      content: ""
+      title: '',
+      content: ''
     }
   ]
 };
-var _errors = [];
 
-var AboutStore = assign({}, EventEmitter.prototype, {
-  emitChange: function () {
-    this.emit(CHANGE_EVENT);
-  },
+let _errors = [];
 
-  addChangeListener: function (callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
+class AboutStore extends Store {
+  constructor() {
+    super();
+  }
 
-  removeChangeListener: function (callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getPage: function () {
+  getPage() {
     return _page;
-  },
+  }
 
-  getErrors: function () {
+  getErrors() {
     return _errors;
   }
-});
+}
 
-AboutStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+let aboutStoreInstance = new AboutStore();
+
+aboutStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+  let action = payload.action;
 
   switch(action.type) {
     case ActionTypes.RECEIVE_ABOUT_PAGE:
@@ -51,14 +40,17 @@ AboutStore.dispatchToken = AppDispatcher.register(function(payload) {
         _page = action.json.about;
         _errors = [];
       }
+
       if (action.errors) {
         _errors = action.errors;
       }
-      AboutStore.emitChange();
-      break;
+
+    default:
+      return;
   }
 
-  return true;
+  aboutStoreInstance.emitChange();
+
 });
 
-module.exports = AboutStore;
+export default aboutStoreInstance;
