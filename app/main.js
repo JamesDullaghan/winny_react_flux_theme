@@ -1,19 +1,22 @@
-import React from 'react';
+import React       from 'react';
 import ReactRouter from 'react-router';
+
 // Styles
 import css from '../styles/style.scss';
+
 // Components
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
-import Index from './components/index';
-import About from './components/about';
-import Contact from './components/contact';
-import Posts from './components/posts/posts_page';
-import Post from './components/posts/post_page';
+import Header   from './components/header/header';
+import Footer   from './components/footer/footer';
+import Index    from './components/index';
+import About    from './components/about';
+import contact  from './components/contact';
+import Posts    from './components/posts/posts_page';
+import Post     from './components/posts/post_page';
 import Services from './components/services';
-import Service from './components/services/service_page';
+import Service  from './components/services/service_page';
+
 // Api Utils
-import WebAPIUtils from './utils/WebAPIUtils';
+import WebAPIUtils   from './utils/WebAPIUtils';
 // Stores
 import FacilityStore from './stores/FacilityStore';
 // Actions
