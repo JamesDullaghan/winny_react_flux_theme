@@ -1,51 +1,46 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
+import Store         from './Store';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/AppConstants';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants.js');
-var EventEmitter = require('events').EventEmitter;
+let _team = [];
+let _errors = [];
 
-var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
-
-var ActionTypes = AppConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _team = [];
-var _errors = [];
-
-var TeamStore = assign({}, EventEmitter.prototype, {
-  emitChange: function () {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function (callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function (callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getTeam: function () {
-    return _team;
-  },
-
-  getErrors: function () {
-    return _errors;
+class TeamStore extends Store {
+  constructor() {
+    super();
   }
 
-});
+  getTeam() {
+    return _team;
+  }
 
-TeamStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+  getErrors() {
+    return _errors;
+  }
+}
+
+let teamStoreInstance = new TeamStore();
+
+teamStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+  let action = payload.action;
 
   switch(action.type) {
     case ActionTypes.RECEIVE_TEAM:
-      _team = action.json.team;
-      TeamStore.emitChange();
-      break;
+      if (action.json) {
+        _team = action.json.team;
+        _errors = [];
+      }
+
+      if (action.errors) {
+        _errors = action.errors;
+      }
+
+    default:
+      return;
   }
 
-  return true;
+  teamStoreInstance.emitChange();
 });
 
-module.exports = TeamStore;
+export default teamStoreInstance;
