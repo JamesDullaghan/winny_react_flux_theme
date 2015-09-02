@@ -1,0 +1,21 @@
+{
+  "name": "foundation-theme-0005",
+  "version": "0.0.1",
+  "homepage": "https://github.com/JamesDullaghan/static_winny_themes",
+  "authors": [
+    "James Dullaghan <james@fldlvl.com>"
+  ],
+  "description": "Foundation react theme 0005",
+  "main": "app.jsx",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.5.2"
+  }
+}
