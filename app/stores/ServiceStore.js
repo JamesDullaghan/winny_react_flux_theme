@@ -1,69 +1,68 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
+import Store         from './Store';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/AppConstants';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants.js');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
-
-var ActionTypes = AppConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _services = [];
-var _errors = [];
-
-var _service = {
-  id: "",
-  name: "",
-  description: "",
-  short_description: "",
-  price: ""
+let _services = [];
+let _service = {
+  id: '',
+  name: '',
+  description: '',
+  short_description: '',
+  price: ''
 }
+let _errors = [];
 
-var ServiceStore = assign({}, EventEmitter.prototype, {
-  emitChange: function () {
-    this.emit(CHANGE_EVENT);
-  },
+class ServiceStore extends Store {
+  constructor() {
+    super();
+  }
 
-  addChangeListener: function (callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function (callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getAllServices: function () {
+  getAllServices() {
     return _services;
-  },
+  }
 
-  getService: function () {
+  getService() {
     return _service;
-  },
+  }
 
-  getErrors: function () {
+  getErrors() {
     return _errors;
   }
-});
+}
 
-ServiceStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+let serviceStoreInstance = new ServiceStore();
+
+serviceStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+  let action = payload.action;
 
   switch(action.type) {
     case ActionTypes.RECEIVE_SERVICES:
-      _services = action.json.services;
-      ServiceStore.emitChange();
-      break;
+      if (action.json) {
+        _services = action.json.services;
+        _errors = [];
+      }
+
+      if (action.errors) {
+        _errors = action.errors;
+      }
 
     case ActionTypes.RECEIVE_SERVICE:
       if (action.json) {
         _service = action.json.service;
         _errors = [];
       }
-      ServiceStore.emitChange();
-      break;
+
+      if (action.errors) {
+        _errors = action.errors;
+      }
+
+    default:
+      return;
   }
 
-  return true;
+  serviceStoreInstance.emitChange();
+
 });
 
-module.exports = ServiceStore;
+export default serviceStoreInstance;
