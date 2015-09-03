@@ -9,7 +9,7 @@ import Header   from './components/header/header';
 import Footer   from './components/footer/footer';
 import Index    from './components/index';
 import About    from './components/about';
-import contact  from './components/contact';
+import Contact  from './components/contact';
 import Posts    from './components/posts/posts_page';
 import Post     from './components/posts/post_page';
 import Services from './components/services';

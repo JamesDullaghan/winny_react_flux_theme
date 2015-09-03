@@ -1,3 +1,4 @@
+import Store         from './Store';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
