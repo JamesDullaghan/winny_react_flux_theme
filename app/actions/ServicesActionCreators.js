@@ -11,6 +11,7 @@ module.exports = {
       type: ActionTypes.LOAD_SERVICES_PAGE,
       pageName: pageName
     });
-    WebAPIUtils.loadServicesPage(pageName);
+
+    WebAPIUtils.loadPage(pageName);
   }
 }

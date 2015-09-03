@@ -5,7 +5,6 @@ const PayloadSources = AppConstants.PayloadSources;
 
 let AppDispatcher = Object.assign(new Dispatcher(), {
   handleServerAction(action) {
-    console.log(action);
     let payload = {
       source: PayloadSources.SERVER_ACTION,
       action: action
@@ -15,7 +14,6 @@ let AppDispatcher = Object.assign(new Dispatcher(), {
   },
 
   handleViewAction(action) {
-    console.log(action);
     let payload = {
       source: PayloadSources.VIEW_ACTION,
       action: action

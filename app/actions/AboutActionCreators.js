@@ -11,6 +11,7 @@ module.exports = {
       type: ActionTypes.LOAD_ABOUT_PAGE,
       pageName: pageName
     });
-    WebAPIUtils.loadAboutPage(pageName);
+
+    WebAPIUtils.loadPage(pageName);
   }
 }
