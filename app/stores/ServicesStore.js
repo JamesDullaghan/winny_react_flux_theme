@@ -15,7 +15,7 @@ let _page = {
 let _errors = [];
 
 class ServicesStore extends Store {
-  constuctor() {
+  constructor() {
     super();
   }
 

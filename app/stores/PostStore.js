@@ -22,7 +22,7 @@ let _post = {
 }
 
 class PostStore extends Store {
-  constuctor() {
+  constructor() {
     super();
   }
 

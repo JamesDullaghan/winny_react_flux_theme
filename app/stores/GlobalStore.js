@@ -20,7 +20,9 @@ class GlobalStore extends Store {
   }
 }
 
-let globalStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+let globalStoreInstance = new GlobalStore();
+
+globalStoreInstance.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
