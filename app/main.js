@@ -29,7 +29,7 @@ const DefaultRoute = ReactRouter.DefaultRoute;
 
 export class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this._onChange = this._onChange.bind(this);
     this.state = {
       facility: FacilityStore.getFacility(),

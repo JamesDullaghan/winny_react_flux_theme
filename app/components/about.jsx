@@ -1,47 +1,46 @@
-var React = require('react');
+import React from 'react';
+// Stores
+import TeamStore  from '../stores/TeamStore';
+import AboutStore from '../stores/AboutStore';
+// Actions
+import TeamActionCreators  from '../actions/TeamActionCreators';
+import AboutActionCreators from '../actions/AboutActionCreators';
+// Components
+import TeamList  from '../components/team/team_list';
+import AboutList from '../components/about/about_list';
 
-var WebAPIUtils = require('../utils/WebAPIUtils');
-var TeamStore = require('../stores/TeamStore');
-var TeamActionCreators = require('../actions/TeamActionCreators');
-
-var AboutStore = require('../stores/AboutStore');
-var AboutActionCreators = require('../actions/AboutActionCreators');
-
-var TeamList = require('../components/team/team_list');
-var AboutList = require('../components/about/about_list');
-
-var About = React.createClass({
-  displayName: 'About Page Component',
-
-  getInitialState: function () {
-    return {
+export class About extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onChange = this._onChange.bind(this);
+    this.state = {
       team: TeamStore.getTeam(),
       page: AboutStore.getPage(),
       errors: []
     };
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     AboutStore.addChangeListener(this._onChange);
-    AboutActionCreators.loadAboutPage('about');
     TeamStore.addChangeListener(this._onChange);
+    AboutActionCreators.loadPage('about');
     TeamActionCreators.loadTeam();
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     AboutStore.removeChangeListener(this._onChange);
     TeamStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  _onChange: function () {
+  _onChange() {
     this.setState({
       page: AboutStore.getPage(),
       team: TeamStore.getTeam(),
       errors: TeamStore.getErrors()
     });
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div>
         <AboutList sections={this.state.page.sections}/>
@@ -49,6 +48,4 @@ var About = React.createClass({
       </div>
     )
   }
-});
-
-module.exports = About;
+}
