@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -6,23 +6,17 @@ import WebAPIUtils   from '../utils/WebAPIUtils';
 let _globals = [];
 let _errors = [];
 
-class GlobalStore extends Store {
-  constructor() {
-    super();
-  }
-
+let GlobalStore = Object.assign(Store, {
   getGlobals() {
     return _globals;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let globalStoreInstance = new GlobalStore();
-
-globalStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+GlobalStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -36,11 +30,13 @@ globalStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      GlobalStore.emitChange();
+
     default:
       return;
   }
 
-  globalStoreInstance.emitChange();
+
 });
 
-export default globalStoreInstance;
+export default GlobalStore;

@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -13,27 +13,21 @@ let _contact = {
 };
 let _errors = [];
 
-class ContactStore extends Store {
-  constuctor() {
-    super();
-  }
-
+let ContactStore = Object.assign(Store, {
   getAllContacts() {
     return _contacts;
-  }
+  },
 
   getContact() {
     return _contact;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let contactStoreInstance = new ContactStore();
-
-contactStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+ContactStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -46,11 +40,11 @@ contactStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      ContactStore.emitChange();
+
     default:
       return;
   }
-
-  contactStoreInstance.emitChange();
 });
 
-export default contactStoreInstance;
+export default ContactStore;

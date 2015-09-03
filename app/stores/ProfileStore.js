@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -16,23 +16,17 @@ let _profile = {
 }
 let _errors = [];
 
-class ProfileStore extends Store {
-  constuctor() {
-    super();
-  }
-
+let ProfileStore = Object.assign(Store, {
   getProfile() {
     return _profile;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let profileStoreInstance = new ProfileStore();
-
-profileStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+ProfileStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -46,11 +40,11 @@ profileStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      ProfileStore.emitChange();
+
     default:
       return;
   }
-
-  profileStoreInstance.emitChange();
 });
 
-export default profileStoreInstance;
+export default ProfileStore;

@@ -9,7 +9,7 @@ import AboutActionCreators from '../actions/AboutActionCreators';
 import TeamList  from '../components/team/team_list';
 import AboutList from '../components/about/about_list';
 
-export class About extends React.Component {
+class About extends React.Component {
   constructor(props) {
     super(props);
     this._onChange = this._onChange.bind(this);
@@ -23,7 +23,7 @@ export class About extends React.Component {
   componentDidMount() {
     AboutStore.addChangeListener(this._onChange);
     TeamStore.addChangeListener(this._onChange);
-    AboutActionCreators.loadPage('about');
+    AboutActionCreators.loadAboutPage('about');
     TeamActionCreators.loadTeam();
   }
 
@@ -41,11 +41,16 @@ export class About extends React.Component {
   }
 
   render() {
+    let sections = this.state.page.sections;
+    let team = this.state.team;
+
     return (
       <div>
-        <AboutList sections={this.state.page.sections}/>
-        <TeamList team={this.state.team}/>
+        <AboutList sections={sections}/>
+        <TeamList team={team}/>
       </div>
     )
   }
 }
+
+export default About;

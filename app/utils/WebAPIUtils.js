@@ -1,5 +1,5 @@
 import ServerActionCreators from '../actions/ServerActionCreators';
-import AppConstants         from '../constants/AppConstants';
+import { APIEndpoints }     from '../constants/AppConstants';
 import request              from 'superagent';
 
 function _getErrors(res) {
@@ -15,8 +15,6 @@ function _getErrors(res) {
   }
   return errorMsgs;
 }
-
-const APIEndpoints = AppConstants.APIEndpoints;
 
 export default {
   loadPosts() {

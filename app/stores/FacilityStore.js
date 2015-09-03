@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -20,23 +20,17 @@ let _facility = {
 
 let _errors = [];
 
-class FacilityStore extends Store {
-  constructor() {
-    super();
-  }
-
+let FacilityStore = Object.assign(Store, {
   getFacility() {
     return _facility;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let facilityStoreInstance = new FacilityStore();
-
-facilityStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+FacilityStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -50,11 +44,11 @@ facilityStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      FacilityStore.emitChange();
+
     default:
       return;
   }
-
-  FacilityStore.emitChange();
 });
 
-export default facilityStoreInstance;
+export default FacilityStore;

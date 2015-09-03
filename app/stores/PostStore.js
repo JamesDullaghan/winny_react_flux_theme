@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -21,27 +21,21 @@ let _post = {
   featured_image_thumb_url: ''
 }
 
-class PostStore extends Store {
-  constructor() {
-    super();
-  }
-
+let PostStore = Object.assign(Store, {
   getAllPosts() {
     return _posts;
-  }
+  },
 
   getPost() {
     return _post;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let postStoreInstance = new PostStore();
-
-postStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+PostStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -60,11 +54,11 @@ postStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      PostStore.emitChange();
+
     default:
       return;
   }
-
-  postStoreInstance.emitChange();
 });
 
-export default postStoreInstance;
+export default PostStore;

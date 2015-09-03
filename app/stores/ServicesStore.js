@@ -1,4 +1,4 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
@@ -14,23 +14,17 @@ let _page = {
 }
 let _errors = [];
 
-class ServicesStore extends Store {
-  constructor() {
-    super();
-  }
-
+let ServicesStore = Object.assign(Store, {
   getPage() {
     return _page;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let servicesStoreInstance = new ServicesStore();
-
-servicesStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+ServicesStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -44,12 +38,11 @@ servicesStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      ServicesStore.emitChange();
+
     default:
       return;
   }
-
-  servicesStoreInstance.emitChange();
-
 });
 
-export default servicesStoreInstance;
+export default ServicesStore;

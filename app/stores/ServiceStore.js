@@ -1,7 +1,7 @@
-import Store         from './Store';
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import {ActionTypes} from '../constants/AppConstants';
-import WebAPIUtils   from '../utils/WebAPIUtils';
+import Store           from './BaseStore';
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
 let _services = [];
 let _service = {
@@ -13,27 +13,21 @@ let _service = {
 }
 let _errors = [];
 
-class ServiceStore extends Store {
-  constructor() {
-    super();
-  }
-
+let ServiceStore = Object.assign(Store, {
   getAllServices() {
     return _services;
-  }
+  },
 
   getService() {
     return _service;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let serviceStoreInstance = new ServiceStore();
-
-serviceStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+ServiceStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -47,6 +41,8 @@ serviceStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      ServiceStore.emitChange();
+
     case ActionTypes.RECEIVE_SERVICE:
       if (action.json) {
         _service = action.json.service;
@@ -57,12 +53,12 @@ serviceStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      ServiceStore.emitChange();
+
     default:
       return;
   }
 
-  serviceStoreInstance.emitChange();
-
 });
 
-export default serviceStoreInstance;
+export default ServiceStore;

@@ -1,28 +1,21 @@
-// TODO figure this out!!!
 import EventEmitter from 'events';
 
 const CHANGE_EVENT = 'change';
 
-class Store extends EventEmitter {
-  constructor() {
-    super();
-  }
-
+let BaseStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
-  }
+  },
 
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
-  }
+  },
 
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
+});
 
-}
+BaseStore.dispatchToken = null;
 
-Store.dispatchToken = null;
-
-export default Store;
-
+export default BaseStore;

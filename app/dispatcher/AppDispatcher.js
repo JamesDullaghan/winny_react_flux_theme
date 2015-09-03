@@ -1,7 +1,5 @@
-import AppConstants   from '../constants/AppConstants';
-import { Dispatcher } from 'flux';
-
-const PayloadSources = AppConstants.PayloadSources;
+import { PayloadSources } from '../constants/AppConstants';
+import { Dispatcher }     from 'flux';
 
 let AppDispatcher = Object.assign(new Dispatcher(), {
   handleServerAction(action) {

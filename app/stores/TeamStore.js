@@ -1,28 +1,24 @@
-import Store         from './Store';
+import Store         from './BaseStore';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
 
+const CHANGE_EVENT = 'change';
+
 let _team = [];
 let _errors = [];
 
-class TeamStore extends Store {
-  constructor() {
-    super();
-  }
-
+let TeamStore = Object.assign(Store, {
   getTeam() {
     return _team;
-  }
+  },
 
   getErrors() {
     return _errors;
   }
-}
+});
 
-let teamStoreInstance = new TeamStore();
-
-teamStoreInstance.dispatchToken = AppDispatcher.register(payload => {
+TeamStore.dispatchToken = AppDispatcher.register(payload => {
   let action = payload.action;
 
   switch(action.type) {
@@ -36,11 +32,11 @@ teamStoreInstance.dispatchToken = AppDispatcher.register(payload => {
         _errors = action.errors;
       }
 
+      TeamStore.emitChange();
+
     default:
       return;
   }
-
-  teamStoreInstance.emitChange();
 });
 
-export default teamStoreInstance;
+export default TeamStore;
