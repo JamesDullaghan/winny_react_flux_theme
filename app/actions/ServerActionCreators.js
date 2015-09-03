@@ -1,38 +1,36 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
-var AppConstants = require('../constants/AppConstants.js');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
 
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  receivePosts: function (json) {
+export default {
+  receivePosts(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_POSTS,
       json: json
     });
   },
 
-  receivePost: function (json) {
+  receivePost(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_POST,
       json: json
     });
   },
 
-  receiveProfile: function (json) {
+  receiveProfile(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_PROFILE,
       json: json
     });
   },
 
-  receiveTeam: function (json) {
+  receiveTeam(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_TEAM,
       json: json
     });
   },
 
-  receiveCreatedContact: function (json, errors) {
+  receiveCreatedContact(json, errors) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_CREATED_CONTACT,
       json: json,
@@ -40,45 +38,46 @@ module.exports = {
     });
   },
 
-  receiveServices: function (json) {
+  receiveServices(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_SERVICES,
       json: json
     });
   },
 
-  receiveService: function (json) {
+  receiveService(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_SERVICE,
       json: json
     });
   },
 
-  receiveGlobals: function (json) {
+  receiveGlobals(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_GLOBALS,
       json: json
     });
   },
 
-  receiveServicesPage: function (json) {
+  receiveServicesPage(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_SERVICES_PAGE,
       json: json
     });
   },
 
-  receiveAboutPage: function (json) {
+  receiveAboutPage(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_ABOUT_PAGE,
       json: json
     });
   },
 
-  receiveFacility: function (json) {
+  receiveFacility(json) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_FACILITY,
       json: json
     });
   }
+
 }
