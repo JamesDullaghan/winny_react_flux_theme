@@ -1,24 +1,22 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants');
-
-var WebAPIUtils = require('../utils/WebAPIUtils');
-
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  loadServices: function () {
+export default {
+  loadServices() {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_SERVICES
     });
+
     WebAPIUtils.loadServices();
   },
 
-  loadService: function (serviceId) {
+  loadService(serviceId) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_SERVICE,
       serviceId: serviceId
     });
+
     WebAPIUtils.loadService(serviceId);
   }
-};
+}
