@@ -1,15 +1,13 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppConstants = require('../constants/AppConstants');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
-var WebAPIUtils = require('../utils/WebAPIUtils');
-
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  loadFacility: function () {
+export default {
+  loadFacility() {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_FACILITY,
     });
+
     WebAPIUtils.loadFacility();
   }
 }
