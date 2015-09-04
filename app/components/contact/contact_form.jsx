@@ -26,8 +26,7 @@ var ContactForm = React.createClass({
       error = e.target.name + ' is required';
     else if (value.length < 1)
       error = 'Please provide more information.';
-    // var errors = this.state.errors;
-    // console.log(errors);
+
     this.setState({ errors: [error] });
   },
 
