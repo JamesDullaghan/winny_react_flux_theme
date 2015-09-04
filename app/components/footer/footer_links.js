@@ -1,11 +1,14 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+import React  from 'react';
+import Router from 'react-router';
 
-var FooterLinks = React.createClass({
-  displayName: 'Footer Links Component',
+let Link = Router.Link;
 
-  render: function () {
+class FooterLinks extends React.Component {
+  constuctor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div className="large-3 medium-4 small-12 columns end">
         <p className="nav-title">Quicklinks</p>
@@ -17,6 +20,6 @@ var FooterLinks = React.createClass({
       </div>
     )
   }
-});
+}
 
-module.exports = FooterLinks;
+export default FooterLinks;

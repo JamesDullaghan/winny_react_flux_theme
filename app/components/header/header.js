@@ -1,12 +1,13 @@
-var React = require('react');
-var Router = require('react-router');
-var Navigation = require('./navigation');
-var Link = Router.Link;
+import React      from 'react';
+import { Link }   from 'react-router';
+import Navigation from './navigation';
 
-var Header = React.createClass({
-  displayName: "Header Component",
+class Header extends React.Component {
+  constuctor(props) {
+    super(props);
+  }
 
-  render: function () {
+  render() {
     return (
       <nav className="top-bar" data-topbar>
         <ul className="title-area">
@@ -25,6 +26,6 @@ var Header = React.createClass({
       </nav>
     )
   }
-});
+}
 
-module.exports = Header;
+export default Header;
