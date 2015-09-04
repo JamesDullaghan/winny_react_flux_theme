@@ -1,12 +1,13 @@
-var React = require('react');
-var ContactForm = require('./contact/contact_form');
+import React       from 'react';
+import ContactForm from './contact/contact_form';
+import GoogleMap   from './index/google_map';
 
-var GoogleMap = require('./index/google_map');
+class Contact extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-var Contact = React.createClass({
-  displayName: 'Contact Page',
-
-  render: function () {
+  render() {
     return (
       <div>
         <div className="row">
@@ -37,12 +38,10 @@ var Contact = React.createClass({
       </div>
     )
   }
-});
+}
 
-var AddressCard = React.createClass({
-  displayName: 'Address Card Component',
-
-  render: function () {
+class AddressCard extends React.Component {
+  render() {
     return (
       <ul className="vcard">
         <li className="fn">{this.props.facility.name}</li>
@@ -67,6 +66,6 @@ var AddressCard = React.createClass({
       </ul>
     )
   }
-});
+}
 
-module.exports = Contact;
+export default Contact;

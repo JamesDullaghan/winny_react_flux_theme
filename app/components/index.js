@@ -1,52 +1,53 @@
-var React = require('react');
-var Cta = require('./index/cta');
-var Icons = require('./index/icons');
-var About = require('./index/about');
-var Value = require('./index/value');
-var SecondaryCta = require('./index/secondary_cta');
-var Testimonials = require('./index/testimonials');
-var Social = require('./index/social');
-var GoogleMap = require('./index/google_map');
+import React        from 'react';
+// Components
+import Cta          from './index/cta';
+import Icons        from './index/icons';
+import About        from './index/about';
+import Value        from './index/value';
+import SecondaryCta from './index/secondary_cta';
+import Testimonials from './index/testimonials';
+import Social       from './index/social';
+import GoogleMap    from './index/google_map';
 
-var GlobalStore = require('../stores/GlobalStore');
-var GlobalActionCreators = require('../actions/GlobalActionCreators');
+// Stores
+import GlobalStore  from '../stores/GlobalStore';
+// Actions
+import GlobalActionCreators from '../actions/GlobalActionCreators';
 
-var $ = require('jquery');
+import $ from 'jquery';
 
-// @todo Add props!!!!
-var Index = React.createClass({
-  displayName: 'Index Component',
-
-  getInitialState: function () {
-    return {
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onChange = this._onChange.bind(this);
+    this.state = {
       globals: GlobalStore.getGlobals(),
       errors: []
     };
-  },
+  }
 
-  componentWillMount: function () {
+  componentWillMount() {
     $('body').addClass('home-page');
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     GlobalStore.addChangeListener(this._onChange);
     GlobalActionCreators.loadGlobals();
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     $('body').removeClass('home-page');
     GlobalStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  _onChange: function () {
+  _onChange() {
     this.setState({
       globals: GlobalStore.getGlobals(),
       errors: GlobalStore.getErrors()
     });
-  },
+  }
 
-  render: function () {
-    console.log(this.props.facility);
+  render() {
     return (
       <div>
         <Cta facility={this.props.facility}/>
@@ -67,6 +68,6 @@ var Index = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = Index;
+export default Index;
