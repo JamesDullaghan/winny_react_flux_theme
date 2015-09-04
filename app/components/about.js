@@ -15,7 +15,7 @@ class About extends React.Component {
     this._onChange = this._onChange.bind(this);
     this.state = {
       team: TeamStore.getTeam(),
-      page: AboutStore.getPage(),
+      page: AboutStore.getAboutPage(),
       errors: []
     };
   }
@@ -34,7 +34,7 @@ class About extends React.Component {
 
   _onChange() {
     this.setState({
-      page: AboutStore.getPage(),
+      page: AboutStore.getAboutPage(),
       team: TeamStore.getTeam(),
       errors: TeamStore.getErrors()
     });
@@ -43,7 +43,6 @@ class About extends React.Component {
   render() {
     let sections = this.state.page.sections;
     let team = this.state.team;
-
     return (
       <div>
         <AboutList sections={sections}/>

@@ -3,7 +3,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
 
-let _page = {
+let _servicesPage = {
   name: '',
   sections: [
     {
@@ -15,8 +15,8 @@ let _page = {
 let _errors = [];
 
 let ServicesStore = Object.assign(Store, {
-  getPage() {
-    return _page;
+  getServicesPage() {
+    return _servicesPage;
   },
 
   getErrors() {
@@ -30,7 +30,7 @@ ServicesStore.dispatchToken = AppDispatcher.register(payload => {
   switch(action.type) {
     case ActionTypes.RECEIVE_SERVICES_PAGE:
       if (action.json) {
-        _page = action.json.services;
+        _servicesPage = action.json.services;
         _errors = [];
       }
 

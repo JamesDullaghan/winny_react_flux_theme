@@ -1,7 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-var ErrorNotice = React.createClass({
-  render: function () {
+class ErrorNotice extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div className="alert-box alert radius">
         <ul className="no-bullet">
@@ -11,8 +15,8 @@ var ErrorNotice = React.createClass({
         </ul>
         <a className="close">&times;</a>
       </div>
-    );
+    )
   }
-});
+}
 
-module.exports = ErrorNotice;
+export default ErrorNotice;

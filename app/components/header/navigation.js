@@ -1,12 +1,8 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
-var State = Router.State;
+import React from 'react';
+import { Link } from 'react-router';
 
-var Navigation = React.createClass({
-  displayName: "Navigation Component",
-
-  render: function () {
+class Navigation extends React.Component {
+  render() {
     return (
       <section className="top-bar-section">
         <ul className="right">
@@ -18,23 +14,29 @@ var Navigation = React.createClass({
       </section>
     )
   }
-});
+}
 
-var NavItem = React.createClass({
-  mixins: [ State ],
+class NavItem extends React.Component {
+  contextTypes: {
+    router: React.propTypes.func
+  }
 
-  activeLink: function () {
-    return (this.getPath().split('/')[1] === this.props.link)
-  },
+  activeLink() {
+    let pathname = this.context.router.getCurrentPathname();
+    let link = this.props.link;
 
-  render: function () {
+    return (pathname === link);
+  }
+
+  render() {
     var activeClassName = this.activeLink() ? 'active' : '';
+
     return (
       <li className={activeClassName}>
         <Link to={this.props.link}>{this.props.name}</Link>
       </li>
     )
   }
-});
+}
 
-module.exports = Navigation;
+export default Navigation;

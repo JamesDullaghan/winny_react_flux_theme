@@ -3,7 +3,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
 
-let _page = {
+let _aboutPage = {
   name: '',
   sections: [
     {
@@ -16,8 +16,8 @@ let _page = {
 let _errors = [];
 
 let AboutStore = Object.assign(Store, {
-  getPage() {
-    return _page;
+  getAboutPage() {
+    return _aboutPage;
   },
 
   getErrors() {
@@ -31,7 +31,7 @@ AboutStore.dispatchToken = AppDispatcher.register(payload => {
   switch(action.type) {
     case ActionTypes.RECEIVE_ABOUT_PAGE:
       if (action.json) {
-        _page = action.json.about;
+        _aboutPage = action.json.about;
         _errors = [];
       }
 

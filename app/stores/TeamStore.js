@@ -3,8 +3,6 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/AppConstants';
 import WebAPIUtils   from '../utils/WebAPIUtils';
 
-const CHANGE_EVENT = 'change';
-
 let _team = [];
 let _errors = [];
 
