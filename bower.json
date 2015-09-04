@@ -1,9 +1,9 @@
 {
-  "name": "foundation-theme-0005",
+  "name": "winny_react_flux_theme",
   "version": "0.0.1",
-  "homepage": "https://github.com/JamesDullaghan/static_winny_themes",
+  "homepage": "https://github.com/JamesDullaghan/winny_react_flux_theme",
   "authors": [
-    "James Dullaghan <james@fldlvl.com>"
+    "James Dullaghan <james@pandodev.com>"
   ],
   "description": "Foundation react theme 0005",
   "main": "app.jsx",

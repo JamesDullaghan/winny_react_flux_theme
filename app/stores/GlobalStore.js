@@ -1,41 +1,23 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppConstants = require('../constants/AppConstants');
+import Store         from './BaseStore';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/AppConstants';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils');
+let _globals = [];
+let _errors = [];
 
-var ActionTypes = AppConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _errors = [];
-var _globals = {
-}
-
-var GlobalStore = assign({}, EventEmitter.prototype, {
-  emitChange: function () {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function (callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function (callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getGlobals: function () {
+let GlobalStore = Object.assign(Store, {
+  getGlobals() {
     return _globals;
   },
 
-  getErrors: function () {
+  getErrors() {
     return _errors;
   }
 });
 
-GlobalStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+GlobalStore.dispatchToken = AppDispatcher.register(payload => {
+  let action = payload.action;
 
   switch(action.type) {
     case ActionTypes.RECEIVE_GLOBALS:
@@ -47,11 +29,14 @@ GlobalStore.dispatchToken = AppDispatcher.register(function(payload) {
       if (action.errors) {
         _errors = action.errors;
       }
+
       GlobalStore.emitChange();
-      break;
+
+    default:
+      return;
   }
 
-  return true;
+
 });
 
-module.exports = GlobalStore;
+export default GlobalStore;

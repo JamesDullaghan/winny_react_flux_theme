@@ -1,18 +1,27 @@
-import React from 'react';
+import React       from 'react';
 import ReactRouter from 'react-router';
+
+// Styles
 import css from '../styles/style.scss';
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
-import Index from './components/index';
-import About from './components/about';
-import Contact from './components/contact';
-import Posts from './components/posts/posts_page';
-import Post from './components/posts/post_page';
+
+// Components
+import Header   from './components/header/header';
+import Footer   from './components/footer/footer';
+import Index    from './components/index';
+import About    from './components/about';
+import Contact  from './components/contact';
+import Posts    from './components/posts/posts_page';
+import Post     from './components/posts/post_page';
 import Services from './components/services';
-import Service from './components/services/service_page';
-import WebAPIUtils from './utils/WebAPIUtils';
+import Service  from './components/services/service_page';
+
+// Api Utils
+import WebAPIUtils   from './utils/WebAPIUtils';
+// Stores
 import FacilityStore from './stores/FacilityStore';
+// Actions
 import FacilityActionCreators from './actions/FacilityActionCreators';
+
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
 const RouteHandler = ReactRouter.RouteHandler;
@@ -20,7 +29,7 @@ const DefaultRoute = ReactRouter.DefaultRoute;
 
 export class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this._onChange = this._onChange.bind(this);
     this.state = {
       facility: FacilityStore.getFacility(),

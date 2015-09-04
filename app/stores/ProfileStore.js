@@ -1,51 +1,33 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
+import Store         from './BaseStore';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/AppConstants';
+import WebAPIUtils   from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants.js');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
-
-var ActionTypes = AppConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _errors = [];
-var _profile = {
-  id: "",
-  twitter_url: "",
-  facebook_url: "",
-  pinterest_url: "",
-  linkedin_url: "",
-  googleplus_url: "",
-  yelp_url: "",
-  meta_keywords: "",
-  meta_description: ""
+let _profile = {
+  id: '',
+  twitter_url: '',
+  facebook_url: '',
+  pinterest_url: '',
+  linkedin_url: '',
+  googleplus_url: '',
+  yelp_url: '',
+  meta_keywords: '',
+  meta_description: ''
 }
+let _errors = [];
 
-var ProfileStore = assign({}, EventEmitter.prototype, {
-  emitChange: function () {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function (callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function (callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getProfile: function () {
+let ProfileStore = Object.assign(Store, {
+  getProfile() {
     return _profile;
   },
 
-  getErrors: function () {
+  getErrors() {
     return _errors;
   }
-
 });
 
-ProfileStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+ProfileStore.dispatchToken = AppDispatcher.register(payload => {
+  let action = payload.action;
 
   switch(action.type) {
     case ActionTypes.RECEIVE_PROFILE:
@@ -53,14 +35,16 @@ ProfileStore.dispatchToken = AppDispatcher.register(function(payload) {
         _profile = action.json.profile;
         _errors = [];
       }
+
       if (action.errors) {
         _errors = action.errors;
       }
-      ProfileStore.emitChange();
-      break;
-  }
 
-  return true;
+      ProfileStore.emitChange();
+
+    default:
+      return;
+  }
 });
 
-module.exports = ProfileStore;
+export default ProfileStore;

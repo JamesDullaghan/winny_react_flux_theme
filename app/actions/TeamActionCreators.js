@@ -1,14 +1,13 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
-var AppConstants = require('../constants/AppConstants.js');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  loadTeam: function () {
+export default {
+  loadTeam() {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_TEAM
     });
+
     WebAPIUtils.loadTeam();
   }
 }

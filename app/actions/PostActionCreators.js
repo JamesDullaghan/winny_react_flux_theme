@@ -1,23 +1,22 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
-var AppConstants = require('../constants/AppConstants.js');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
-
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  loadPosts: function () {
+export default {
+  loadPosts() {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_POSTS
     });
+
     WebAPIUtils.loadPosts();
   },
 
-  loadPost: function(postId) {
+  loadPost(postId) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_POST,
       postId: postId
     });
+
     WebAPIUtils.loadPost(postId);
   }
-};
+}

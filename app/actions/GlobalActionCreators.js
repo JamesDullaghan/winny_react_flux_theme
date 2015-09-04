@@ -1,11 +1,9 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AppConstants = require('../constants/AppConstants');
-var WebAPIUtils = require('../utils/WebAPIUtils');
+import AppDispatcher   from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+import WebAPIUtils     from '../utils/WebAPIUtils';
 
-var ActionTypes = AppConstants.ActionTypes;
-
-module.exports = {
-  loadGlobals: function () {
+export default {
+  loadGlobals() {
     AppDispatcher.handleViewAction({
       type: ActionTypes.LOAD_GLOBALS
     });
